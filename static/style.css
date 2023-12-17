@@ -1,0 +1,17 @@
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    padding-top: 20px;
+}
+
+h1 {
+    color: #007bff;
+}
+
+.form-control {
+    width: auto;
+}
+
+#results {
+    margin-top: 20px;
+}

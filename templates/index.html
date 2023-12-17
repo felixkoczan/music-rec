@@ -3,16 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Recommender</title>
+    <title>Music Recommender</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Movie Recommendations</h1>
-    <form action="/recommend" method="post">
-        <input type="text" name="user_id" placeholder="Enter User ID">
-        <button type="submit">Get Recommendations</button>
-    </form>
-    <!-- JavaScript File -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="text-center mb-4">Music Recommendations</h1>
+                <form action="/recommend" method="post" class="form-inline justify-content-center">
+                    <div class="form-group mb-2">
+                        <input type="text" class="form-control" name="user_id" placeholder="Enter User ID" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2 ml-2">Get Recommendations</button>
+                </form>
+                <!-- Results Section -->
+                <div id="results" class="mt-4">
+                    <!-- Recommendations will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

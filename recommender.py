@@ -5,9 +5,12 @@ from surprise import accuracy
 
 # 1. Import Libraries
 import random
-
+import pandas as pd
 # 2. Load Dataset
-data = Dataset.load_builtin('ml-100k')  # MovieLens 100k dataset
+
+# Replace 'path_to_file' with the actual file path
+df = pd.read_csv('path_to_file.csv')
+
 trainset, testset = train_test_split(data, test_size=0.25)
 
 # 3. Create a Model (Using KNN)
