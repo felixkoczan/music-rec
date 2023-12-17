@@ -1,0 +1,17 @@
+"app.py: This is your main Flask application file. It'll handle routes and integrate with your recommender system.
+
+recommender.py: Contains your ML model and functions to get recommendations. You can import this module in app.py.
+
+templates/index.html: The HTML template for your web app's frontend.
+
+static/css/style.css: Your CSS file for styling the HTML page.
+
+static/js/script.js: (Optional) If you're using JavaScript for dynamic content or AJAX requests.
+
+requirements.txt: Lists all the Python dependencies, which can be installed via pip install -r requirements.txt."
+
+flask
+pandas
+numpy
+scikit-surprise
+
