@@ -9,7 +9,7 @@ import pandas as pd
 # 2. Load Dataset
 
 # Replace 'path_to_file' with the actual file path
-df = pd.read_csv('path_to_file.csv')
+df = pd.read_csv('C:\Users\felix\Downloads\archive.zip')
 
 trainset, testset = train_test_split(data, test_size=0.25)
 
