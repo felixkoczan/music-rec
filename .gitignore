@@ -1,0 +1,24 @@
+# Data files
+data/spotify_millsongdata.csv
+
+# Serialized objects
+df.pkl
+tfidf_matrix.pkl
+
+# Other large files or directories (add as needed)
+*.csv
+*.pkl
+
+# Common directories to ignore
+node_modules/
+venv/
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
