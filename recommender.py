@@ -1,48 +1,31 @@
-from surprise import Dataset, Reader
-from surprise import KNNBasic
-from surprise.model_selection import train_test_split
-from surprise import accuracy
-
-# 1. Import Libraries
-import random
 import pandas as pd
-# 2. Load Dataset
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import pickle
 
-# Replace 'path_to_file' with the actual file path
-df = pd.read_csv('C:\Users\felix\Downloads\archive.zip')
+# Load Dataset
+df = pd.read_csv('C:/Users/felix/music-rec/data/spotify_millsongdata.csv')
 
-trainset, testset = train_test_split(data, test_size=0.25)
+# Preprocess and combine text, artist, and genre into a single feature
+df['combined_features'] = df['text'].str.lower() + ' ' + df['artist'].str.lower()
+df['combined_features'] = df['combined_features'].replace(r'\s+', ' ', regex=True)
 
-# 3. Create a Model (Using KNN)
-model = KNNBasic(sim_options={'user_based': True})
+# Using TfidfVectorizer with combined features
+tfidf_vectorizer = TfidfVectorizer(analyzer='word', stop_words='english', max_features=10000)
+tfidf_matrix = tfidf_vectorizer.fit_transform(df['combined_features'])
 
-# 4. Train the Model
-model.fit(trainset)
+# Function to compute similarity for a specific song
+def compute_similarity_for_song(song, tfidf_matrix, df):
+    song_idx = df[df['song'] == song].index[0]
+    song_feature = tfidf_matrix[song_idx]
+    similarity = cosine_similarity(song_feature, tfidf_matrix).flatten()
+    similar_indices = similarity.argsort()[-11:-1][::-1]
+    return df.iloc[similar_indices]['song'].tolist()
 
-# 5. Make Predictions on the Test Set
-predictions = model.test(testset)
+# Example usage
+recommended_songs = compute_similarity_for_song('Fernando', tfidf_matrix, df)
+print(recommended_songs)
 
-# 6. Evaluate Accuracy
-accuracy.rmse(predictions)
-
-# 7. Example Recommendation Function
-def get_top_n_recommendations(predictions, n=10):
-    from collections import defaultdict
-
-    top_n = defaultdict(list)
-    for uid, iid, true_r, est, _ in predictions:
-        top_n[uid].append((iid, est))
-
-    # Sort the predictions for each user and retrieve the k highest ones.
-    for uid, user_ratings in top_n.items():
-        user_ratings.sort(key=lambda x: x[1], reverse=True)
-        top_n[uid] = user_ratings[:n]
-
-    return top_n
-
-# Get top 10 recommendations for each user
-top_n_recommendations = get_top_n_recommendations(predictions, n=10)
-
-# Print the recommended items for each user
-for uid, user_ratings in top_n_recommendations.items():
-    print(uid, [iid for (iid, _) in user_ratings])
+# Pickle the TF-IDF matrix and the DataFrame
+pickle.dump(tfidf_matrix, open('tfidf_matrix.pkl', 'wb'))
+pickle.dump(df, open('df.pkl', 'wb'))
