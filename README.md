@@ -3,7 +3,7 @@
 ## Video Demo: https://www.youtube.com/watch?v=cDopfhQWA8U
 
 ## Description
-Tune Tornado leverages the Spotify Million Song Dataset to recommend songs based on textual features (such as lyrics) combined with artist and genre metadata. The system uses Python for backend processing and Streamlit for a web-based interactive interface.
+Tune Tornado leverages the Spotify Million Song Dataset to recommend songs based on textual features (such as lyrics) combined with artist metadata. The system uses Python for backend processing and Streamlit for a web-based interactive interface.
 
 ## Files Description
 
@@ -22,7 +22,6 @@ The Spotify Million Song Dataset is a rich dataset that contains metadata and fe
 
 Song: The title of the song.
 Artist: The name of the artist.
-Genre: The genre of the song.
 Text: Textual data, which could be lyrics or descriptive text about the song.
 
 ## Dependencies
@@ -47,7 +46,7 @@ pip install pandas numpy sklearn spotipy streamlit
 
 ### Data Preprocessing (recommender.py):
 
-The dataset is loaded and preprocessed. Textual data are combined with artist and genre information to enrich the feature set.
+The dataset is loaded and preprocessed. Textual data are combined with artist information to enrich the feature set.
 Feature Extraction with TF-IDF Vectorizer:
 
 TfidfVectorizer from scikit-learn is employed to transform the preprocessed textual data into a TF-IDF matrix.
@@ -61,7 +60,7 @@ This structured and enriched data is then utilized in the recommendation logic t
 #### Recommendation Function (recommender.py):
 
 Purpose:
-This function is designed to compute and return a list of songs that are similar to a given song. The similarity is determined based on the features extracted from the songs' textual data (and possibly other attributes like artist and genre), transformed into a TF-IDF (Term Frequency-Inverse Document Frequency) matrix.
+This function is designed to compute and return a list of songs that are similar to a given song. The similarity is determined based on the features extracted from the songs' textual data (and possibly other attributes like artist), transformed into a TF-IDF (Term Frequency-Inverse Document Frequency) matrix.
 
 Parameters:
 song: The title of the song for which recommendations are sought. It is a string representing the name of the song.
