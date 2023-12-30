@@ -1,7 +1,9 @@
-# Music Recommender System
+# TuneTornado
+## A music recommendation system
+## Video Demo: https://www.youtube.com/watch?v=cDopfhQWA8U
 
-## Overview
-This music recommendation system leverages the Spotify Million Song Dataset to recommend songs based on textual features (such as lyrics) combined with artist and genre metadata. The system uses Python for backend processing and Streamlit for a web-based interactive interface.
+## Description
+Tune Tornado leverages the Spotify Million Song Dataset to recommend songs based on textual features (such as lyrics) combined with artist and genre metadata. The system uses Python for backend processing and Streamlit for a web-based interactive interface.
 
 ## Files Description
 
