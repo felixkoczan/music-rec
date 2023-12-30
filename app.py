@@ -4,6 +4,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 # Spotify client credentials (replace with your credentials)
 CLIENT_ID = "b939c064215a48a78f21d815089ae564"
 CLIENT_SECRET = "3637caf08ffd438cbbf6eebf39c747ca"
@@ -40,25 +41,26 @@ def recommend(song, df, tfidf_matrix):
 
     return recommended_music_names, recommended_music_posters
 
-st.set_page_config(page_title="Music Recommender", page_icon="🎵", layout="wide")
-st.title('🎶 Music Recommender System')
+# Streamlit app layout
+st.set_page_config(page_title="TuneTornado", page_icon="🎵", layout="wide")
+st.title('🎶 What would you like to listen to?')
 
+# Load data and TF-IDF matrix
 df = pickle.load(open('df.pkl', 'rb'))
 tfidf_matrix = pickle.load(open('tfidf_matrix.pkl', 'rb'))
 
-with st.sidebar:
-    st.header("Select a Song")
-    selected_song = st.selectbox("Type or select from the dropdown", df['song'].values)
+# Dropdown for song selection directly in the main page
+st.header("Select a Song")
+selected_song = st.selectbox("Type or select from the dropdown", df['song'].values)
 
-st.header("Recommended Songs")
-if st.button('Show Recommendation'):
+st.header("Check out these songs!")
+if st.button('Show Recommendations'):
     recommended_music_names, recommended_music_posters = recommend(selected_song, df, tfidf_matrix)
     
-    col1, col2, col3, col4, col5 = st.columns(5)
-    columns = [col1, col2, col3, col4, col5]
-
-    for i, col in enumerate(columns):
-        with col:
-            if i < len(recommended_music_names):
-                st.image(recommended_music_posters[i], width=150)
-                st.caption(recommended_music_names[i])
+    # Display the recommendations
+    for i in range(0, len(recommended_music_names), 5):
+        cols = st.columns(5)
+        for col, idx in zip(cols, range(i, min(i+5, len(recommended_music_names)))):
+            with col:
+                st.image(recommended_music_posters[idx], width=150)
+                st.caption(recommended_music_names[idx])
